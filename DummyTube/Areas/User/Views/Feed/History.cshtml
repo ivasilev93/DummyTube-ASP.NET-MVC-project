@@ -1,0 +1,10 @@
+﻿@model IEnumerable<DummyTube.Models.ViewModels.Video.VideoViewModel>
+
+@{
+    ViewBag.Title = "History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>History</h2>
+
+@Html.Partial("~/Views/Shared/Partials/DetailedVideosListPartial.cshtml", Model)

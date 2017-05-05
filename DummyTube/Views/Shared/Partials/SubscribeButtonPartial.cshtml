@@ -1,0 +1,32 @@
+﻿@model DummyTube.Models.ViewModels.Account.ShowProfileViewModel
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    if (!Model.Subscribed)
+    {
+        using (Ajax.BeginForm("Subscribe", "User", null, new AjaxOptions
+        {
+            HttpMethod = "POST",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "subscribeButton"
+        }))
+        {
+            <input type="hidden" name="id" value="@Model.Id" />
+                    <input type="submit" name="Subscribe" value="Subscribe" class="btn btn-success" />
+        }
+    }
+    else
+    {
+        using (Ajax.BeginForm("Unsubscribe", "User", null, new AjaxOptions
+        {
+            HttpMethod = "POST",
+            UpdateTargetId = "subscribeButton",
+            InsertionMode = InsertionMode.Replace,
+        }))
+        {
+            <input type="hidden" name="id" value="@Model.Id" />
+                    <input type="submit" name="Subscribe" value="Unsubscribe" class="btn btn-success" />
+        }
+    }
+}

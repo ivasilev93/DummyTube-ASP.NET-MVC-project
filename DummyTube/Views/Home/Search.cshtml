@@ -1,0 +1,9 @@
+﻿@model IEnumerable<DummyTube.Models.ViewModels.Video.VideoViewModel>
+
+@{
+    ViewBag.Title = "Results";
+}
+
+<h2>Search results:</h2>
+<br />
+@Html.Partial("~/Views/Shared/Partials/DetailedVideosListPartial.cshtml", Model)

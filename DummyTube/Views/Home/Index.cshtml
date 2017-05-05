@@ -1,0 +1,10 @@
+﻿@using DummyTube.Models.ViewModels.Video
+@model IEnumerable<VideoViewModel>
+
+@{
+    ViewBag.Title = "DummyTube - Home";
+}
+
+    <h2>All videos</h2>
+    <br />
+    @Html.Partial("~/Views/Shared/Partials/VideosGridLayoutPartial.cshtml", Model)

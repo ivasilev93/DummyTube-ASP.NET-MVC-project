@@ -1,0 +1,29 @@
+﻿@model IEnumerable<DummyTube.Models.ViewModels.Comment.CommentViewModel>
+
+@foreach (var comment in Model)
+{
+    <div class="row">
+      <div class="col-lg-11 col-sm-11 col-md-11">
+          <p><strong>@comment.Author</strong> - <strong>@comment.PostedOn</strong></p>
+          <p>@comment.Content</p>
+      </div>
+        @if (User.IsInRole("admin"))
+        {
+            <div class="col-lg-1 col-sm-1 col-md-1">
+                @using (Ajax.BeginForm("DeleteComment", "Admin", null ,
+                new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    UpdateTargetId = "comments",
+                    InsertionMode = InsertionMode.Replace
+                }))
+                {
+                <input name="VideoYoutubeId" value="@comment.VideoYoutubeId" type="hidden" />
+                <input name="Id" value="@comment.Id" type="hidden" />
+                <input type="submit" class="btn btn-danger" value="Delete Comment"/>
+                }
+            </div>
+        }
+    </div>
+    <hr>
+}

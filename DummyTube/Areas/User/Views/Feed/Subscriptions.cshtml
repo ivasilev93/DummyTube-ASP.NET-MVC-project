@@ -1,0 +1,16 @@
+﻿@model IEnumerable<DummyTube.Models.ViewModels.Account.UserInfoViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Subscriptions</h2>
+
+@foreach (var item in Model)
+{
+    <div class="row">
+        <p><a href="/user/@item.Name">@item.Name</a>, Videos - @item.VideoCount</p>
+    </div>
+}
+

@@ -1,0 +1,43 @@
+﻿@model DummyTube.Models.ViewModels.Account.ShowProfileViewModel
+
+@{
+    ViewBag.Title = "UserProfile";
+}
+
+@if (User.Identity.Name != Model.User)
+{
+    <div class="row">
+        <h2>@Model.User's Videos</h2>
+    </div>
+    if (User.Identity.IsAuthenticated)
+    {
+        <div class="row">
+            <div id="subscribeButton">
+                @Html.Partial("~/Views/Shared/Partials/SubscribeButtonPartial.cshtml", Model)
+            </div>
+        </div>
+    }
+    <br />
+}
+else
+{
+    <div class="row">
+        <h2>Your Videos</h2>
+    </div>
+    <div class="row">
+        @Html.ActionLink("Add Video", "AddVideo", "Upload", null , new { @class = "btn btn-success" })
+    @*</div>
+    <div class="row">*@
+        @Html.ActionLink("Manage Account", "Index", "Manage", null, new { @class = "btn btn-success" })
+    @*</div>
+    <div class="row">*@
+        @Html.ActionLink("History", "History", "Feed", null, new { @class = "btn btn-success" })
+    @*</div>
+    <div class="row">*@
+        @Html.ActionLink("Subscriptions", "Subscriptions", "Feed", null, new { @class = "btn btn-success" })
+    </div>
+    <br />
+}
+
+@Html.Partial("~/Views/Shared/Partials/VideosGridLayoutPartial.cshtml", Model.Videos)
+

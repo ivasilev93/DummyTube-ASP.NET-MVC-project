@@ -1,0 +1,27 @@
+﻿@model IEnumerable<DummyTube.Models.ViewModels.Video.VideoViewModel>
+
+<div class="container">
+    @foreach (var video in Model)
+    {
+        <div class="row">
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <div class="card" style="width: 20rem;">
+                    <a href="/@video.YoutubeId">
+                        <img class="card-img-top" src=@video.Image alt="some img..." width="246" height="138"/>
+                    </a>
+                    <div class="card-block">
+                        <a href="/@video.YoutubeId">
+                            <h4 class="card-title">@video.Title</h4>
+                        </a>
+                        <a class="card-text" href="/user/@video.Owner">@video.Owner</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9 col-md-9 col-lg-9">
+                <span>@video.Description</span>
+            </div>
+        </div>
+        <hr>
+    }
+</div>
+

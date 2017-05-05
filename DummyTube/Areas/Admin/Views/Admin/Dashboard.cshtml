@@ -1,0 +1,42 @@
+﻿@model IEnumerable<DummyTube.Models.ViewModels.Account.UserInfoViewModel>
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Admin Dashboard</h2>
+
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-lg-6 col-sm-6 col-md-6">
+            <p>@Html.ActionLink(item.Name, "ShowProfile", "User", new { username = item.Name }, null), Videos - @item.VideoCount</p>
+            @using (Html.BeginForm("DeleteUser", "Admin", FormMethod.Post))
+            {
+                <input type="hidden" name="id" value="@item.Id" />
+                <input type="submit" name="Submit" value="Delete User" class="btn btn-danger" />
+            }
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6">
+            <div class="container-fluid">
+                <ul id="activityLog"></ul>
+            </div>
+        </div>
+     </div>
+}
+
+@*<script src="~/Scripts/jquery-3.1.1.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
+<script src="~/Scripts/jquery.signalR-2.2.1.js" type="text/javascript"></script>
+<script src="~/signalr/hubs" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        var log = $.connection.activityHub;
+
+        log.client.logWatchedVideo = function (videoTitle, username) {
+            $('#activityLog')
+                .append('<li id="">' + username + ' just watched ' + videoTitle + '</li>')
+        }
+    });
+</script>*@

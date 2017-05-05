@@ -1,0 +1,55 @@
+﻿@model DummyTube.Models.ViewModels.Video.VideoDetailsViewModel
+
+@{
+    ViewBag.Title = "Watch";
+}
+
+<h2>Watch @Model.Title</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-11 col-sm-11 col-md-11">
+            <iframe width="854" height="480" src="https://www.youtube.com/embed/@Model.YoutubeId" frameborder="0" allowfullscreen></iframe>
+        </div>
+        @if (User.IsInRole("admin"))
+        {
+            <div class="col-lg-1 col-sm-1 col-md-1">
+                @using (Html.BeginForm("DeleteVideo", "Admin", null , FormMethod.Post))
+                {
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <input type="hidden" name="Owner" value="@Model.Owner" />
+                    <input type="submit" name="Submit" value="Delete Video" class="btn btn-danger"/>
+                }
+            </div>
+        }
+    </div>
+
+   <div class="row">
+       @if (Request.IsAuthenticated)
+       {
+           using (Ajax.BeginForm("PostComment", "User",
+             new AjaxOptions
+             {
+                 HttpMethod = "POST",
+                 UpdateTargetId = "comments",
+                 InsertionMode = InsertionMode.Replace
+             }))
+           {
+               @Html.AntiForgeryToken();
+                <input class="form-group" name="YoutubeId" value="@Model.YoutubeId" type="hidden" />
+                <textarea class="form-control form-control-lg" rows="3" cols="100" name="Content"></textarea>
+                <input class="btn btn-success" type="submit" value="Post comment"/>
+            }
+       }
+       else
+       {
+            <h3>Login to be able to comment :) </h3>
+       }
+   </div>
+
+    <br />
+    <div id="comments">
+        @Html.Partial("~/Views/Shared/Partials/CommentsPartial.cshtml", Model.Comments)
+    </div>
+</div>
+

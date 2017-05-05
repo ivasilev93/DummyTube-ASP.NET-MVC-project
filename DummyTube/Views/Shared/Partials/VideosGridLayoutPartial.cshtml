@@ -1,0 +1,37 @@
+﻿@using DummyTube.Models.ViewModels.Video
+@model IEnumerable<VideoViewModel>
+
+
+<div class="container-fluid">
+    @{
+        int rows = Model.Count() / 4;
+        IEnumerable<VideoViewModel> videos;
+
+        for (int i = 0; i <= rows; i++)
+        {
+            videos = Model.Skip(4 * i).Take(4);
+            if (videos.Count() != 0)
+            {
+                <hr />
+            }
+            <div class="row">
+                @foreach (var video in videos)
+                {
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <div class="card" style="width: 20rem;">
+                            <div class="card-block">
+                                <a href="/@video.YoutubeId">
+                                    <img class="card-img-top" src=@video.Image alt="some img..." width="246" height="138"/>
+                                </a>
+                                <a href="/@video.YoutubeId">
+                                    <h4 class="card-title">@video.Title</h4>
+                                </a>                               
+                                <a class="card-subtitle mb-2 text-muted" href="/user/@video.Owner">@video.Owner</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    }
+</div>
